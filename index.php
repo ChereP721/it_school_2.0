@@ -60,6 +60,25 @@
                 <div title="3 response">
                     <span>Comments</span>
                 </div>
+                <div>
+                    <button type="button">
+                        <span>Show Comments</span>
+                    </button>
+                    <ul>
+                        <li>
+                            <img src="/" alt="Avatar admin">
+                            <div>
+                                <div>
+                                    <span>Admin</span>
+                                    <time datetime="2013-03-14T20:28:57">March 14, 2013</time>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </footer>
         </article>
     </main>
