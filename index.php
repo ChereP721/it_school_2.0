@@ -11,79 +11,91 @@ include 'data.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
     <title><?=$documentTitle?></title>
 </head>
-<body>
-    <header>
-        <nav>
-            <a href="/blog.php">BLOG</a>
-            <a href="/categories.php">CATEGORIES</a>
+<body class="body">
+    <header class="header">
+        <nav class="header__nav container">
+            <a href="/blog.php" class="header__link">BLOG</a>
+            <a href="/categories.php" class="header__link">CATEGORIES</a>
         </nav>
     </header>
-    <main>
-        <h1>Blog</h1>
-        <article>
-            <header>
-                <h2 title="Mauris posuere">Mauris posuere</h2>
-            </header>
-            <figure>
-                <img src="https://livedemo00.template-help.com/wordpress_50742/wp-content/uploads/2014/07/Depositphotos_12240275_original-200x150.jpg" alt="">
-            </figure>
-            <p><?=$post?></p>
-            <button type="button">Read more</button>
-            <hr>
-            <footer>
-                <div>
-                    <div>
-                        <i class="fa fa-calendar"></i>
-                        <time datetime="2013-03-14T20:28:57">March 14, 2013</time>
-                    </div>
-                    <div>
-                        <i class="fa fa-user"></i>
-                        <a href="/" title="<?=($author === $you ? 'Your posts' : 'Posts by Author')?>"><?=($author === $you ? 'You' : 'Author')?></a>
+    <main class="container main">
+        <h1 class="main__heading main__heading_level_1">Blog</h1>
+        <article class="post">
+            <div class="post__wrapper">
+                <header class="post__header">
+                    <h2 class="post__title" title="Mauris posuere">Mauris posuere</h2>
+                </header>
+                <div class="post__content">
+                    <figure class="post__img">
+                        <img src="https://livedemo00.template-help.com/wordpress_50742/wp-content/uploads/2014/07/Depositphotos_12240275_original-200x150.jpg" alt="">
+                    </figure>
+                    <div class="post__group">
+                        <p class="post__desc"><?=$post?></p>
+                        <a href="/" class="post__link">Read more</a>
                     </div>
                 </div>
-                <hr>
-                <div>
-                    <div title="View all posts in Uncategorized">
-                        <i class="fa fa-bookmark"></i>
-                        <a href="/">Uncategorized</a>
+                <footer class="post__footer">
+                    <div class="post__info-line">
+                        <div class="post__item">
+                            <i class="post__icon fa fa-calendar"></i>
+                            <time datetime="2013-03-14T20:28:57" class="post__text">March 14, 2013</time>
+                        </div>
+                        <div class="post__item">
+                            <i class="post__icon fa fa-user"></i>
+                            <a  href="/"
+                                class="post__text"
+                                title="<?=($author === $you ? 'Your posts' : 'Posts by Author')?>">
+                                <?=($author === $you ? 'You' : 'Author')?>
+                            </a>
+                        </div>
                     </div>
-                    <div>
-                        <i class="fa fa-comment"></i>
-                        <a href="/" title="Comment on Mauris posuere">No comments</a>                 
+                    <div class="post__info-line">
+                        <div class="post__item" title="View all posts in Uncategorized">
+                            <i class="post__icon fa fa-bookmark"></i>
+                            <a href="/" class="post__text">Uncategorized</a>
+                        </div>
+                        <div class="post__item">
+                            <i class="post__icon fa fa-comment"></i>
+                            <a href="/" class="post__text" title="Comment on Mauris posuere">No comments</a>                 
+                        </div>
                     </div>
-                </div>
-                <hr>
-                <div title="Number of view.">
-                    <i class="fa fa-eye"></i>
-                    <span><?=$viewsCount?></span>
-                </div>
-                <hr>
-                <div title="3 response">
-                    <span>Comments</span>
-                </div>
-                <div>
-                    <button type="button">
+                    <div class="post__info-line">
+                        <div class="post__item" title="Number of view.">
+                            <i class="post__icon fa fa-eye"></i>
+                            <span class="post__text"><?=$viewsCount?></span>
+                        </div>
+                        <div title="3 response">
+                            <span class="post__text">Add to comments</span>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="comments">
+                    <button class="comments__btn" type="button" data-count="<?= count($commentAr) ?>">
                         <span>Show Comments</span>
                     </button>
-                    <ul>
+                    <ul class="comments__list">
                         <?php
-                        foreach ($commentAr as $comment) {
-                            ?>
-                        <li>
-                            <img src="/" alt="Avatar admin">
-                            <div>
-                                <div>
-                                    <span>Admin</span>
-                                    <time datetime="2013-03-14T20:28:57">March 14, 2013</time>
+                            foreach ($commentAr as $comment) {
+                        ?>
+                            <li class="comments__item">
+                                <img 
+                                    class="comments__avatar"
+                                    src="https://secure.gravatar.com/avatar/5cdc09662dd539303e316621ec21b6be?s=65&d=https%3A%2F%2Fsecure.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D65&r=G"
+                                    alt="Avatar admin"
+                                >
+                                <div class="comments__wrapper">
+                                    <div class="comments__contact">
+                                        <span class="comments__name">Admin -</span>
+                                        <time class="comments__time" datetime="2013-03-14T20:28:57">March 14, 2013</time>
+                                    </div>
+                                    <p class="comments__desc"><?=$comment?></p>
                                 </div>
-                                <p>
-                                    <?=$comment?>
-                                </p>
-                            </div>
-                        </li>
-                        <?php
+                            </li>
+                            <?php
                             if ($comment === 'Апокрефично') {
                                 if ($image) {
                                     echo '<li><img src="'.$image.'" /></li>';
@@ -95,36 +107,30 @@ include 'data.php';
                     </ul>
                 </div>
             </footer>
+            </div>
         </article>
     </main>
-    <footer>
-        <span><?php echo COPYRIGHT; ?></span>
+    <footer class="footer">
+        <span class="footer__copyright"><?php echo COPYRIGHT; ?></span>
     </footer>
-
     <!-- Подготовка формы для добавления комментариев  -->
-    <form action="/" method="post" name="form-comment" enctype="multipart/form-data">
-        <fieldset>
-            <legend>Leave a comment</legend>
-            <p>
-                <label for="name">Name</label>
-                <input type="text" id="name" placeholder="name">
-            </p>
-            <p>
-                <label for="email">E-mail</label>
-                <input type="text" id="email" placeholder="e-mail">
-            </p>
-            <p>
-                <label for="comment">Your comment</label>
-                <textarea name="comment " id="comment" cols="30" rows="10"></textarea>
-            </p>
-            <p>
-                <label for="file">Image</label>
-                <input name="file" type="file" id="file" accept="image/*">
-            </p>
-            <p>
-                <button type="submit">Submit Comment</button>
-            </p>
-        </fieldset>
-    </form>
+    <div class="modal">
+        <form action="/" method="post" name="form-comment" enctype="multipart/form-data" class="modal__form">
+            <fieldset>
+                <legend>Leave a comment</legend>
+                <div class="modal__wrapper">
+                    <label class="modal__label" for="name">Name</label>
+                    <input class="modal__input" type="text" id="name" placeholder="name">
+                    <label class="modal__label" for="email">E-mail</label>
+                    <input class="modal__input" type="text" id="email" placeholder="e-mail">
+                    <label class="modal__label" for="file">Image</label>
+                    <input class="modal__label" name="file" type="file" id="file" accept="image/*">
+                    <label class="modal__label" for="comment">Your comment</label>
+                    <textarea class="modal__textarea" name="comment" id="comment" cols="30" rows="10"></textarea>
+                    <button class="modal__btn" type="submit">Submit Comment</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 </body>
 </html>
