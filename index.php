@@ -89,20 +89,15 @@ include 'data.php';
                                 >
                                 <div class="comments__wrapper">
                                     <div class="comments__contact">
-                                        <span class="comments__name">Admin -</span>
+                                        <span class="comments__name"><?=($comment['author'] === $you ? 'you' : $comment['author'])?> -</span>
                                         <time class="comments__time" datetime="2013-03-14T20:28:57">March 14, 2013</time>
                                     </div>
-                                    <p class="comments__desc"><?=$comment?></p>
+                                    <p class="comments__desc"><?=$comment['text']?></p>
                                 </div>
                             </li>
                             <?php
-                            if ($comment === 'Апокрефично') {
-                                if ($image) {
-                                    echo '<li><img src="'.$image.'" /></li>';
-                                }
-                                break;
-                            }
                         }
+                        echo '<li><img src="'.$image.'" /></li>';
                         ?>
                     </ul>
                 </div>
@@ -115,14 +110,14 @@ include 'data.php';
     </footer>
     <!-- Подготовка формы для добавления комментариев  -->
     <div class="modal">
-        <form action="/" method="post" name="form-comment" enctype="multipart/form-data" class="modal__form">
+        <form action="<?=$_SERVER['REQUEST_URI']?>" method="post" name="form-comment" enctype="multipart/form-data" class="modal__form">
             <fieldset>
                 <legend>Leave a comment</legend>
                 <div class="modal__wrapper">
                     <label class="modal__label" for="name">Name</label>
-                    <input class="modal__input" type="text" id="name" placeholder="name">
+                    <input class="modal__input" type="text" id="name" name="name" placeholder="name">
                     <label class="modal__label" for="email">E-mail</label>
-                    <input class="modal__input" type="text" id="email" placeholder="e-mail">
+                    <input class="modal__input" type="text" id="email" name="email" placeholder="e-mail">
                     <label class="modal__label" for="file">Image</label>
                     <input class="modal__label" name="file" type="file" id="file" accept="image/*">
                     <label class="modal__label" for="comment">Your comment</label>

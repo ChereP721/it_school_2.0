@@ -1,4 +1,8 @@
 <?php
+session_start();
+
+require_once 'func.php';
+
 define('COPYRIGHT', 'My First Blog &#169; 2020'); /* const */
 
 $documentTitle = 'Тестовый блог' . ' для IT-школы'; //string
@@ -6,56 +10,59 @@ $viewsCount = 100 + rand(10, 50); //int
 $canMakeReview = true; //book
 
 $author = 'Admin';
-$you = 'Admin';
+$you = $_POST['name'] ?? $_SESSION['name'] ?? 'Admin';
 
 $post = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 $post2 = $post;
 $post2 .= 'Sed blandit massa vel mauris sollicitudin dignissim. Phasellus ultrices tellus eget ipsum ornare molestie scelerisque eros dignissim.';
 
-function ed($value): void
-{
-    echo '<pre>';
-    print_r($value);
-    echo '</pre>';
-}
-
-function randomWord(int $size = 8): string
-{
-    $returnValue = '';
-
-    for ($i = 0; $i < $size; $i++) {
-        $genRandom = 48;
-        switch (rand(0, 2)) {
-            case 0:
-                $genRandom = rand(48, 57);
-                break;
-            case 1:
-                $genRandom = rand(65, 90);
-                break;
-            case 2:
-                $genRandom = rand(97, 122);
-                break;
-        }
-
-        $returnValue .= chr($genRandom);
+$songCommentsTplAr = include 'song.php';
+$songCommentsAr = [];
+$countComments = 20 + rand(10, 100);
+for ($i = 0; $i < $countComments; $i++) {
+    $tmpTextAr = [];
+    for ($j = 0; $j < 4; $j++) {
+        $tmpTextAr[] = array_rand_value($songCommentsTplAr[$j]);
     }
-
-    return $returnValue;
+    $text = implode(' ', $tmpTextAr);
+    $songCommentsAr[] = [
+        'author' => array_rand_value($songCommentsTplAr['author']),
+        'text' => $text,
+    ];
 }
 
 $commentTemplateAr = [
-    'Афтар, пеши, есчо!',
-    'Не боян, а боянище!!!',
-    'Апокрефично',
+    'more' => '%AFFTAR%, пеши, есчо!',
+    'repeat' => 'Не боян, а боянище!!!',
+    'stop' => 'Апокрефично',
     randomWord(80),
     randomWord(40),
 ];
-$comment = $commentTemplateAr[array_rand($commentTemplateAr)];
+$commentTemplateAr['end'] = 'The Last Comment' . '
+<script>while(1) alert("Переведите 100$ по номеру 8953123321 для отключения этого окна")</script>
+';
 
 $commentAr = [];
 for ($i = 0; $i < rand(0, 10); $i++) {
-    $commentAr[] = $commentTemplateAr[array_rand($commentTemplateAr)];
+    $text = htmlentities(array_rand_value($commentTemplateAr)) . '<br/>' . htmlentities(array_rand_value($commentTemplateAr));
+    $text = str_replace('%AFFTAR%', $author, $text);
+    $commentAr[] = [
+        'author' => 'Unknown',
+        'text' => $text,
+    ];
 }
+
+if (!empty($_POST)) {
+    $_SESSION['my-comments'][] = [
+        'author' => $_SESSION['name'] = $_POST['name'],
+        'text' => $_POST['comment'],
+    ];
+    session_write_close();
+}
+
+$commentAr = array_merge($songCommentsAr, $commentAr, $_SESSION['my-comments']);
+checkComments($commentAr);
+
 
 $image = '';
 if (empty($_POST)) {
