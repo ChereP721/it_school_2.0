@@ -17,10 +17,25 @@ include 'data.php';
 </head>
 <body class="body">
     <header class="header">
-        <nav class="header__nav container">
-            <a href="/blog.php" class="header__link">BLOG</a>
-            <a href="/categories.php" class="header__link">CATEGORIES</a>
-        </nav>
+        <div class="header__wrapper container">
+            <nav class="header__nav">
+                <a href="/blog.php" class="header__link">BLOG</a>
+                <a href="/categories.php" class="header__link">CATEGORIES</a>
+            </nav>
+            <div class="auth">
+                <form action="<?=$_SERVER['REQUEST_URI']?>" class="auth__form" method="post">
+                    <div class="auth__group">
+                        <label class="auth__label" for="phone">Phone number</label>
+                        <input class="auth__input" type="tel" id="phone" name="phone" placeholder="phone">
+                    </div>
+                    <div class="auth__group">
+                        <label class="auth__label" for="Password">Password</label>
+                        <input class="auth__input" type="password" id="Password" name="Password" placeholder="password">
+                    </div>
+                    <button class="btn" type="submit">SIGN IN</button>
+                </form>
+            </div>
+        </div>
     </header>
     <main class="container main">
         <h1 class="main__heading main__heading_level_1">Blog</h1>
@@ -109,7 +124,7 @@ include 'data.php';
         <span class="footer__copyright"><?php echo COPYRIGHT; ?></span>
     </footer>
     <!-- Подготовка формы для добавления комментариев  -->
-    <div class="modal">
+    <div class="modal_">
         <form action="<?=$_SERVER['REQUEST_URI']?>" method="post" name="form-comment" enctype="multipart/form-data" class="modal__form">
             <fieldset>
                 <legend>Leave a comment</legend>

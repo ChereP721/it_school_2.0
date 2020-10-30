@@ -15,6 +15,21 @@
     margin: 0 auto;
 }
 
+/* btn */
+.btn {
+    padding: 3px 24px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #87d035;
+    border: none;
+    border-radius: 4px;
+    transition: background .3s ease-in-out;
+}
+
+.btn:hover {
+    background-color: #605b55;
+}
+
 /* header  */
 
 .header {
@@ -22,9 +37,15 @@
     background-color: #484846;
 }
 
+.header__wrapper {
+    display: flex;
+    align-items: center;
+}
+
 .header__nav {
     display: flex;
     justify-content: center;
+    flex-grow: 1;
 }
 
 .header__link {
@@ -261,3 +282,21 @@
     background-color: #87d035;
     border: none;
 }
+
+ /* auth */
+ .auth__form {
+     display: flex;
+     align-items: flex-end;
+ }
+
+ .auth__group {
+    display: flex;
+    flex-direction: column;
+    margin-right: 8px;
+ }
+
+ .auth__label {
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+ }
