@@ -52,13 +52,41 @@ for ($i = 0; $i < rand(0, 10); $i++) {
     ];
 }
 
-if (!empty($_POST)) {
-    $_SESSION['my-comments'][] = [
-        'author' => $_SESSION['name'] = $_POST['name'],
-        'text' => $_POST['comment'],
-    ];
-    session_write_close();
+$errorsArr = [];
+if ($sendForm = $_POST['form-name'] ?? '') {
+    switch ($sendForm) {
+        case 'form-comment':
+            $_SESSION['my-comments'][] = [
+                'author' => $_SESSION['name'] = $_POST['name'],
+                'text' => $_POST['comment'],
+            ];
+            session_write_close();
+            break;
+        case 'form-auth':
+            $users = include "users.php";
+            if (!isset($users[$_POST['login']])) {
+                $errorsArr['unknown login'] = 'Пользователь с таким логином не зарегистрирован на сайте!';
+                break;
+            }
+            if ($users[$_POST['login']]['password'] !== $_POST['Password']) {
+                $errorsArr['wrong password'] = 'Неверный пользователь или пароль!';
+                break;
+            }
+            $_SESSION['auth'] = [
+                'login' => $_POST['login'],
+                'password' => $users[$_POST['login']]['password'],
+                'role' => $users[$_POST['login']]['role'],
+            ];
+            session_write_close();
+            break;
+        case 'form-logout':
+            unset($_SESSION['auth']);
+            session_write_close();
+            break;
+    }
 }
+
+$isAuth = !empty($_SESSION['auth']);
 
 $commentAr = array_merge($songCommentsAr, $commentAr, $_SESSION['my-comments'] ?? []);
 checkComments($commentAr);
@@ -75,3 +103,5 @@ if (!empty($_FILES) && $_FILES['file']['error'] === 0) {
     }
     move_uploaded_file($_FILES['file']['tmp_name'], $image = 'images/' . $_FILES['file']['name']);
 }
+
+

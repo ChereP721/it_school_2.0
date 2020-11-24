@@ -23,20 +23,39 @@ include 'data.php';
                 <a href="/categories.php" class="header__link">CATEGORIES</a>
             </nav>
             <div class="auth">
-                <form action="<?=$_SERVER['REQUEST_URI']?>" class="auth__form" method="post">
-                    <div class="auth__group">
-                        <label class="auth__label" for="phone">Phone number</label>
-                        <input class="auth__input" type="tel" id="phone" name="phone" placeholder="phone">
-                    </div>
-                    <div class="auth__group">
-                        <label class="auth__label" for="Password">Password</label>
-                        <input class="auth__input" type="password" id="Password" name="Password" placeholder="password">
-                    </div>
-                    <button class="btn" type="submit">SIGN IN</button>
-                </form>
+                <?php if ($isAuth) { ?>
+                    <form action="<?=$_SERVER['REQUEST_URI']?>" class="auth__form" method="post">
+                        <input type="hidden" name="form-name" value="form-logout" />
+                        <div class="auth__group">
+                            <label class="auth__label">Login: <strong><?=$_SESSION['auth']['login']?></strong></label>
+                        </div>
+                        <div class="auth__group">
+                            <label class="auth__label">Role: <strong><?=$_SESSION['auth']['role']?></strong></label>
+                        </div>
+                        <button class="btn" type="submit">LOGOUT</button>
+                    </form>
+                <?php } else { ?>
+                    <form action="<?=$_SERVER['REQUEST_URI']?>" class="auth__form" method="post">
+                        <input type="hidden" name="form-name" value="form-auth" />
+                        <div class="auth__group">
+                            <label class="auth__label" for="phone">Login</label>
+                            <input class="auth__input" type="tel" id="login" name="login" placeholder="login">
+                        </div>
+                        <div class="auth__group">
+                            <label class="auth__label" for="Password">Password</label>
+                            <input class="auth__input" type="password" id="Password" name="Password" placeholder="password">
+                        </div>
+                        <button class="btn" type="submit">SIGN IN</button>
+                    </form>
+                <?php } ?>
             </div>
         </div>
     </header>
+    <?php
+    if (!empty($errorsArr)) {
+        ed($errorsArr);
+    }
+    ?>
     <main class="container main">
         <h1 class="main__heading main__heading_level_1">Blog</h1>
         <article class="post">
@@ -126,6 +145,7 @@ include 'data.php';
     <!-- Подготовка формы для добавления комментариев  -->
     <div class="modal_">
         <form action="<?=$_SERVER['REQUEST_URI']?>" method="post" name="form-comment" enctype="multipart/form-data" class="modal__form">
+            <input type="hidden" name="form-name" value="form-comment" />
             <fieldset>
                 <legend>Leave a comment</legend>
                 <div class="modal__wrapper">
