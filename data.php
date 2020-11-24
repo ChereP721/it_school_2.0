@@ -60,7 +60,7 @@ if (!empty($_POST)) {
     session_write_close();
 }
 
-$commentAr = array_merge($songCommentsAr, $commentAr, $_SESSION['my-comments']);
+$commentAr = array_merge($songCommentsAr, $commentAr, $_SESSION['my-comments'] ?? []);
 checkComments($commentAr);
 
 
