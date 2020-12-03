@@ -245,10 +245,31 @@
     bottom: 0;
     margin: auto;
     width: 600px;
-    max-height: 480px;
+    max-height: 55%;
     padding: 30px;
+    opacity: 0;
+    visibility: hidden;
     background-color: #fff;
     box-shadow: 0 0 10px 10px rgba(0,0,0,.055);
+    transition: all 0.3s ease-in-out;
+}
+
+.modal_show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal__container {
+    position: relative;
+}
+
+.modal__btn-close {
+    position: absolute;
+    top: -16px;
+    right: -12px;
+    font-size: 20px;
+    background: none;
+    border: none;
 }
 
 .modal__wrapper {
@@ -279,6 +300,7 @@
     font-size: 16px;
     line-height: 24px;
     padding: 12px;
+    cursor: pointer;
     background-color: #87d035;
     border: none;
 }
@@ -299,4 +321,33 @@
     color: #fff;
     font-weight: 600;
     font-size: 12px;
+ }
+
+ .shadow {
+     display: none;
+     position: absolute;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background-color: rgba(0,0,0,0.6);
+ }
+
+ .shadow_active {
+     display: block;
+ }
+
+ .validate-error[data-required] {
+     position: relative;
+     border: 2px solid red;
+ }
+
+ .validate-error[data-required] + label::before {
+     display: block;
+     content: attr(data-msg);
+     width: 100%;
+     bottom: 0;
+     left: 0;
+     font-size: 12px;
+     color: red;
  }

@@ -11,7 +11,6 @@ $canMakeReview = true; //book
 
 $author = 'Admin';
 $you = $_POST['name'] ?? $_SESSION['name'] ?? 'Admin';
-
 $post = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 $post2 = $post;
 $post2 .= 'Sed blandit massa vel mauris sollicitudin dignissim. Phasellus ultrices tellus eget ipsum ornare molestie scelerisque eros dignissim.';
@@ -105,3 +104,9 @@ if (!empty($_FILES) && $_FILES['file']['error'] === 0) {
 }
 
 
+$newData = [
+    'name' => $_POST['name'],
+    'email' => $_POST['email'],
+    'comment' => $_POST['comment']
+];
+echo json_encode($newData);

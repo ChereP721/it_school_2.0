@@ -35,7 +35,7 @@ function array_rand_value(array $arr)
     return $arr[array_rand($arr)];
 }
 
-function checkComments(array &$commentsAr): void
+function checkComments(array &$commentsAr)
 {
     $commentsAr = array_filter($commentsAr, static function ($value) {
         return !in_array($value['author'], ['Bot', 'Fake']);

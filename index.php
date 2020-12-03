@@ -16,6 +16,7 @@ include 'data.php';
     <title><?=$documentTitle?></title>
 </head>
 <body class="body">
+    <div class="shadow"></div>
     <header class="header">
         <div class="header__wrapper container">
             <nav class="header__nav">
@@ -103,7 +104,7 @@ include 'data.php';
                             <span class="post__text"><?=$viewsCount?></span>
                         </div>
                         <div title="3 response">
-                            <span class="post__text">Add to comments</span>
+                            <button id='add-comment' class="post__text">Add to comments</span>
                         </div>
                     </div>
                     </div>
@@ -143,24 +144,37 @@ include 'data.php';
         <span class="footer__copyright"><?php echo COPYRIGHT; ?></span>
     </footer>
     <!-- Подготовка формы для добавления комментариев  -->
-    <div class="modal_">
-        <form action="<?=$_SERVER['REQUEST_URI']?>" method="post" name="form-comment" enctype="multipart/form-data" class="modal__form">
+    <div class="modal">
+        <div class="modal__container">
+            <button type="button" class="modal__btn-close">
+                <i class="fa fa-close"></i>
+            </button>
+        </div>
+        <form action="<?=$_SERVER['REQUEST_URI']?>" method="post" name="comment" enctype="multipart/form-data" class="modal__form">
             <input type="hidden" name="form-name" value="form-comment" />
             <fieldset>
                 <legend>Leave a comment</legend>
                 <div class="modal__wrapper">
-                    <label class="modal__label" for="name">Name</label>
-                    <input class="modal__input" type="text" id="name" name="name" placeholder="name">
-                    <label class="modal__label" for="email">E-mail</label>
-                    <input class="modal__input" type="text" id="email" name="email" placeholder="e-mail">
+                    <label
+                        class="modal__label"
+                        for="name"
+                        data-msg='Обязательное для заполнения'
+                    >Name</label>
+                    <input class="modal__input"
+                        data-required
+                        type="text" id="name" name="name" placeholder="name">
+
+                    <label class="modal__label" for="email" data-msg='Обязательное для заполнения'>E-mail</label>
+                    <input class="modal__input" data-required type="text" id="email" name="email" placeholder="e-mail">
                     <label class="modal__label" for="file">Image</label>
                     <input class="modal__label" name="file" type="file" id="file" accept="image/*">
-                    <label class="modal__label" for="comment">Your comment</label>
-                    <textarea class="modal__textarea" name="comment" id="comment" cols="30" rows="10"></textarea>
-                    <button class="modal__btn" type="submit">Submit Comment</button>
+                    <label class="modal__label" data-msg='Обязательное для заполнения' for="comment">Your comment</label>
+                    <textarea class="modal__textarea" data-required name="comment" id="comment" cols="30" rows="10"></textarea>
+                    <button class="modal__btn" type="button">Submit Comment</button>
                 </div>
             </fieldset>
         </form>
     </div>
+    <script src="/scripts/index.js"></script>
 </body>
 </html>
