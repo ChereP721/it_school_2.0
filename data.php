@@ -3,6 +3,15 @@ session_start();
 
 require_once 'func.php';
 
+if(isset($_POST['name'], $_POST['email'], $_POST['comment'])) {
+    $newData = [
+        'name' => $_POST['name'],
+        'email' => $_POST['email'],
+        'comment' => $_POST['comment'],
+        'time' => date("F j, Y, g:i a")
+    ];    
+}
+
 define('COPYRIGHT', 'My First Blog &#169; 2020'); /* const */
 
 $documentTitle = 'Тестовый блог' . ' для IT-школы'; //string
@@ -10,10 +19,11 @@ $viewsCount = 100 + rand(10, 50); //int
 $canMakeReview = true; //book
 
 $author = 'Admin';
-$you = $_POST['name'] ?? $_SESSION['name'] ?? 'Admin';
+$you = $newData['name'] ?? $_SESSION['name'] ?? 'Admin';
 $post = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 $post2 = $post;
 $post2 .= 'Sed blandit massa vel mauris sollicitudin dignissim. Phasellus ultrices tellus eget ipsum ornare molestie scelerisque eros dignissim.';
+$dateTime = date("F j, Y, g:i a");
 
 $songCommentsTplAr = include 'song.php';
 $songCommentsAr = [];
@@ -56,7 +66,7 @@ if ($sendForm = $_POST['form-name'] ?? '') {
     switch ($sendForm) {
         case 'form-comment':
             $_SESSION['my-comments'][] = [
-                'author' => $_SESSION['name'] = $_POST['name'],
+                'author' => $_SESSION['name'] = $newData['name'],
                 'text' => $_POST['comment'],
             ];
             session_write_close();
@@ -104,9 +114,5 @@ if (!empty($_FILES) && $_FILES['file']['error'] === 0) {
 }
 
 
-$newData = [
-    'name' => $_POST['name'],
-    'email' => $_POST['email'],
-    'comment' => $_POST['comment']
-];
+sleep(5);
 echo json_encode($newData);

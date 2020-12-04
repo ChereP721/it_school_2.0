@@ -77,7 +77,7 @@ include 'data.php';
                     <div class="post__info-line">
                         <div class="post__item">
                             <i class="post__icon fa fa-calendar"></i>
-                            <time datetime="2013-03-14T20:28:57" class="post__text">March 14, 2013</time>
+                            <time class="post__text"><?= $dateTime ?></time>
                         </div>
                         <div class="post__item">
                             <i class="post__icon fa fa-user"></i>
@@ -124,15 +124,17 @@ include 'data.php';
                                 >
                                 <div class="comments__wrapper">
                                     <div class="comments__contact">
-                                        <span class="comments__name"><?=($comment['author'] === $you ? 'you' : $comment['author'])?> -</span>
-                                        <time class="comments__time" datetime="2013-03-14T20:28:57">March 14, 2013</time>
+                                        <span class="comments__name"><?=($comment['author'] === $you ? $you : $comment['author'])?> -</span>
+                                        <time class="comments__time" datetime="2013-03-14T20:28:57"><?= $dateTime ?></time>
                                     </div>
                                     <p class="comments__desc"><?=$comment['text']?></p>
                                 </div>
                             </li>
                             <?php
                         }
-                        echo '<li><img src="'.$image.'" /></li>';
+                        if ($image) {
+                            echo '<li><img src="'.$image.'" /></li>';
+                        } 
                         ?>
                     </ul>
                 </div>
@@ -145,6 +147,7 @@ include 'data.php';
     </footer>
     <!-- Подготовка формы для добавления комментариев  -->
     <div class="modal">
+        <div class="modal__group">
         <div class="modal__container">
             <button type="button" class="modal__btn-close">
                 <i class="fa fa-close"></i>
@@ -174,6 +177,14 @@ include 'data.php';
                 </div>
             </fieldset>
         </form>
+        <div class="loader__wrapper">
+            <i class="loader__icon fa fa-spinner"></i>
+        </div>
+        <div class="notification">
+            <h3 class="notification__title"></h3>
+            <p class="notification__text"></p>
+        </div>
+        </div>
     </div>
     <script src="/scripts/index.js"></script>
 </body>
